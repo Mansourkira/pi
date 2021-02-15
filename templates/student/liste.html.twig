@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>Le nombre des formations est : {{ formation |length}}</h1>
+<table border="1">
+    <tr>
+        <th>Reference</th>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Date début</th>
+        <th>Date Fin</th>
+        <th>Nb Participans</th>
+    </tr>
+{% for f in formation %}
+    <tr>
+    <td>{{ f.ref }}</td>
+    <td>{{ f.Titre | upper}}</td>
+    <td>{{ f.Description }}</td>
+    <td>{{ f.date_debut }}</td>
+
+    <td>{{ f.date_fin }}</td>
+   if {% if f.nb_participants==0 %}
+    <td><form action="{{ path('detail',{'id':f.ref}) }}">
+            <button>Participer</button>
+        </form> </td>{% else %}
+    <td>{{  f.nb_participants}}</td>
+{% endif %}
+{% else %}
+    <p>Tableau vide</p>
+
+    </tr>
+    {% endfor %}
+
+</table>
+{% set nbtto=0 %}
+{% for f in formation %}
+    {% set nbtto =nbtto +f.nb_participants %}
+{% endfor %}
+<p>le nombre totale de participants est :{{ nbtto }}</p>
+</body>
+
+
+
+
+
+
+
+
+
+
+</html>
